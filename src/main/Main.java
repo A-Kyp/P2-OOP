@@ -17,5 +17,8 @@ public final class Main {
      */
     public static void main(final String[] args) {
         Checker.calculateScore();
+
+        //take Main from P1_OOP
+        //Compare common
     }
 }

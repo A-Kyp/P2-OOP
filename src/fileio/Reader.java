@@ -6,11 +6,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import pojo.AnnualChange;
-import pojo.Child;
-import pojo.Gift;
-import pojo.InitialData;
-import pojo.Input;
+import pojo.*;
 import util.Utils;
 
 import java.io.FileReader;
@@ -57,6 +53,8 @@ public final class Reader {
                       .withFirstName((String) ((JSONObject) kid).get(Constants.FIRST_NAME))
                       .withAge((int) (long) ((JSONObject) kid).get(Constants.AGE))
                       .withCity(Utils.toCity((String) ((JSONObject) kid).get(Constants.CITY)))
+                      .withElf(Utils.toElf((String) ((JSONObject) kid).get(Constants.ELF)))
+                      .witBonus((double) (long) ((JSONObject) kid).get(Constants.NICE_SCORE_BONUS))
                       .build());
                 }
             }
@@ -65,7 +63,8 @@ public final class Reader {
                 for (Object toy : jGift) {
                     gifts.add(new Gift((String) ((JSONObject) toy).get(Constants.PRODUCT_NAME),
                             (double) (long) ((JSONObject) toy).get(Constants.PRICE),
-                            Utils.toCategory((String) ((JSONObject) toy).get(Constants.CATEGORY))));
+                            Utils.toCategory((String) ((JSONObject) toy).get(Constants.CATEGORY)),
+                            (int) (long) ((JSONObject) toy).get(Constants.QUANTITY)));
                 }
             }
 
@@ -83,7 +82,8 @@ public final class Reader {
                         Utils.convertJSONArrayChildUpdate((JSONArray) (((JSONObject) change)
                                 .get(Constants.CHILDREN_UPDATES))),
                         Utils.convertJSONArrayGift((JSONArray) (((JSONObject) change)
-                                .get(Constants.NEW_GIFTS)))));
+                                .get(Constants.NEW_GIFTS))),
+                        Utils.toStrategy((String) ((JSONObject) change).get(Constants.STRATEGY))));
             }
 
             Input in = Input.getInstance(); //create the database (DB)

@@ -1,6 +1,7 @@
 package pojo;
 
 import common.Constants;
+import enums.Cities;
 import service.ChildService;
 import service.RoundService;
 
@@ -57,10 +58,17 @@ public final class Round {
      * @param initial the initial array containing already existent children
      * @param newKids the array containing children to be added to the initial array
      */
-    public void addNewChildren(final ArrayList<Child> initial, final ArrayList<Child> newKids) {
+    public void addNewChildren(final ArrayList<Child> initial, final ArrayList<Child> newKids,
+                               final ArrayList<Cities> cities) {
         if (newKids != null) {
             childService.updateMassHistory(newKids);
             initial.addAll(newKids);
+        }
+
+        for (Child c : newKids) {
+            if(!cities.contains(c.getCity())) {
+                cities.add(c.getCity());
+            }
         }
     }
 
@@ -79,6 +87,9 @@ public final class Round {
                     if (update.getGiftsPreferences() != null) {
                         childService.updatePreferences(c, update.getGiftsPreferences());
                     }
+                    if(update.getElf() != null) {
+                        childService.updateElf(c, update);
+                    }
                 }
             }
         }
@@ -91,7 +102,15 @@ public final class Round {
      */
     public void addNewGifts(final ArrayList<Gift> initial, final ArrayList<Gift> newGift) {
         if (newGift != null) {
-            initial.addAll(newGift);
+            for(Gift g : newGift) {
+                if (!initial.contains(g)) {
+                    initial.add(g);
+                } else {
+                    int q = g.getQuantity();
+                    q += initial.get(roundService.findIndex(initial, g)).getQuantity();
+                    initial.get(roundService.findIndex(initial, g)).setQuantity(q);
+                }
+            }
         }
 
     }
@@ -122,6 +141,19 @@ public final class Round {
     public void resetReceivedGifts(final ArrayList<Child> kids) {
         for (Child c : kids) {
             childService.resetReceivedGifts(c);
+        }
+    }
+
+    public void elvesChangeBudget(final ArrayList<Child> kids) {
+        for (Child c : kids) {
+            childService.elfBudget(c);
+        }
+
+    }
+
+    public void yellowElf(final ArrayList<Child> kids, final ArrayList<Gift> gifts) {
+        for (Child c : kids) {
+            childService.yellowElf(c, gifts);
         }
     }
 }

@@ -1,5 +1,8 @@
 package pojo;
 
+import enums.Cities;
+import enums.CityStrategyEnum;
+
 import java.util.ArrayList;
 
 public final class AnnualChange {
@@ -7,13 +10,16 @@ public final class AnnualChange {
     private final ArrayList<Child> newChildren = new ArrayList<>();
     private final ArrayList<Child> childrenUpdates = new ArrayList<>();
     private final ArrayList<Gift> newGifts = new ArrayList<>();
+    private CityStrategyEnum strategy = null;
 
     public AnnualChange(final Double newSantaBudget, final ArrayList<Child> newChildren,
-                        final ArrayList<Child> childrenUpdates, final ArrayList<Gift> newGifts) {
+                        final ArrayList<Child> childrenUpdates, final ArrayList<Gift> newGifts,
+                        final CityStrategyEnum cStrategy) {
         this.newSantaBudget = newSantaBudget;
         this.newChildren.addAll(newChildren);
         this.childrenUpdates.addAll(childrenUpdates);
         this.newGifts.addAll(newGifts);
+        this.strategy = cStrategy;
     }
 
     public Double getNewSantaBudget() {
@@ -30,5 +36,9 @@ public final class AnnualChange {
 
     public ArrayList<Gift> getNewGifts() {
         return newGifts;
+    }
+
+    public CityStrategyEnum getStrategy() {
+        return strategy;
     }
 }

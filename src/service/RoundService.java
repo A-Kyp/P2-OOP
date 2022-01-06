@@ -1,6 +1,7 @@
 package service;
 
 import pojo.Child;
+import pojo.Gift;
 
 import java.util.ArrayList;
 
@@ -29,5 +30,16 @@ public final class RoundService {
             sum += c.getAverageScore();
         }
         return sum;
+    }
+
+    public int findIndex(ArrayList<Gift> gifts, Gift gift) {
+        int index = 0;
+        for(Gift g : gifts) {
+            if (g.getProductName().equals(gift.getProductName())) {
+                return index;
+            }
+            index ++;
+        }
+        return -1;
     }
 }

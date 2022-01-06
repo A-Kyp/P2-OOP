@@ -3,6 +3,7 @@ package service;
 import calculator.AverageFactory;
 import calculator.AverageScoreCalculator;
 import enums.Category;
+import enums.ElvesType;
 import pojo.Child;
 import pojo.Gift;
 
@@ -73,12 +74,21 @@ public final class ChildService {
         double budget = c.getAssignedBudget();
         for (Category category : c.getGiftsPreferences()) {
             for (Gift g : gifts) {
-                if (g.getCategory().compareTo(category) == 0 && g.getPrice() <= budget) {
+                if(g.getPrice() > budget) {
+                    break;
+                }
+                if (g.getCategory().compareTo(category) == 0 && g.getQuantity() > 0
+                            && g.getPrice() <= budget) {
                     c.getReceivedGifts().add(g);
                     budget -= g.getPrice();
+                    int q = g.getQuantity();
+                    q--;
+                    g.setQuantity(q);
                     break; //go to the next category
                 }
             }
+
+            gifts.removeIf(g -> g.getQuantity() == 0);
         }
     }
 
@@ -100,6 +110,10 @@ public final class ChildService {
             }
         }
         c.setGiftsPreferences(combinedPref);
+    }
+
+    public void updateElf(final Child c, final Child u) {
+        c.setElf(u.getElf());
     }
 
     /**
@@ -131,5 +145,32 @@ public final class ChildService {
         dest.getGiftsPreferences().addAll(src.getGiftsPreferences());
         dest.getNiceScoreHistory().addAll(src.getNiceScoreHistory());
         dest.getReceivedGifts().addAll(src.getReceivedGifts());
+    }
+
+    public void elfBudget(Child c) {
+        double budget = c.getAssignedBudget();
+        if(c.getElf().equals(ElvesType.PINK)) {
+            budget *= 13.0 / 10;
+        } else if (c.getElf().equals(ElvesType.BLACK)) {
+            budget *= 7.0 / 10;
+        }
+        c.setAssignedBudget(budget);
+    }
+
+    public void yellowElf(Child c, ArrayList<Gift> gifts) {
+        if(c.getReceivedGifts().size() == 0 && c.getElf().equals(ElvesType.YELLOW)) {
+            this.allocateGift(c, gifts);
+            if (c.getReceivedGifts().size() == 0) {
+                return;
+            }
+            if(c.getReceivedGifts().get(0).getCategory().equals(c.getGiftsPreferences().get(0))) {
+                Gift g = c.getReceivedGifts().get(0);
+                c.getReceivedGifts().clear();
+                c.getReceivedGifts().add(g);
+            } else {
+                c.getReceivedGifts().clear();
+            }
+        }
+
     }
 }

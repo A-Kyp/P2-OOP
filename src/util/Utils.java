@@ -3,6 +3,8 @@ package util;
 import common.Constants;
 import enums.Category;
 import enums.Cities;
+import enums.CityStrategyEnum;
+import enums.ElvesType;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import pojo.Child;
@@ -50,6 +52,25 @@ public final class Utils {
         };
     }
 
+    public static ElvesType toElf(final String elf) {
+        return switch (elf) {
+            case "yellow" -> ElvesType.YELLOW;
+            case "black" -> ElvesType.BLACK;
+            case "pink" -> ElvesType.PINK;
+            case "white" -> ElvesType.WHITE;
+            default -> null;
+        };
+    }
+
+    public static CityStrategyEnum toStrategy(final String str) {
+        return switch (str) {
+            case Constants.ID -> CityStrategyEnum.ID;
+            case Constants.NICE_SCORE_CITY -> CityStrategyEnum.NICE_SCORE_CITY;
+            case Constants.NICE_SCORE -> CityStrategyEnum.NICE_SCORE;
+            default -> null;
+        };
+    }
+
     /**
      * Transforms an array of JSON's into an array of Category
      * @param array of JSONs
@@ -85,6 +106,8 @@ public final class Utils {
                     .withFirstName((String) ((JSONObject) object).get(Constants.FIRST_NAME))
                     .withAge((int) (long) ((JSONObject) object).get(Constants.AGE))
                     .withCity(Utils.toCity((String) ((JSONObject) object).get(Constants.CITY)))
+                    .withElf(Utils.toElf((String) ((JSONObject) object).get(Constants.ELF)))
+                    .witBonus((double) (long) ((JSONObject) object).get(Constants.NICE_SCORE_BONUS))
                     .build();
                 finalArray.add(kid);
             }
@@ -115,6 +138,7 @@ public final class Utils {
                          (int) (long) ((JSONObject) object).get(Constants.ID))
                          .withNiceScore((double) (long) score)
                          .withPreference(Utils.convertJSONArrayCategory((JSONArray) giftPreference))
+                         .withElf(Utils.toElf((String) ((JSONObject) object).get(Constants.ELF)))
                          .build();
                     finalArray.add(kid);
                 } else if (score == null) {
@@ -149,7 +173,8 @@ public final class Utils {
                 Gift gift = new Gift(
                         (String) ((JSONObject) toy).get(Constants.PRODUCT_NAME),
                         (double) (long) ((JSONObject) toy).get(Constants.PRICE),
-                        Utils.toCategory((String) ((JSONObject) toy).get(Constants.CATEGORY)));
+                        Utils.toCategory((String) ((JSONObject) toy).get(Constants.CATEGORY)),
+                        (int) (long) ((JSONObject) toy).get(Constants.QUANTITY));
                 finalArray.add(gift);
             }
             return finalArray;

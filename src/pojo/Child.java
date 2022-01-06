@@ -1,10 +1,15 @@
 package pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import enums.Category;
 import enums.Cities;
+import enums.ElvesType;
 
 import java.util.ArrayList;
 
+@JsonIgnoreProperties({"niceScoreBonus", "elf"})
 public final class Child {
     private Integer id;
     private String lastName;
@@ -16,6 +21,8 @@ public final class Child {
     private ArrayList<Double> niceScoreHistory = new ArrayList<>();
     private Double assignedBudget;
     private final ArrayList<Gift> receivedGifts = new ArrayList<>();
+    private double niceScoreBonus;
+    private ElvesType elf;
 
     public Child() { }
 
@@ -27,6 +34,8 @@ public final class Child {
         this.firstName = builder.firstName;
         this.age = builder.age;
         this.city = builder.city;
+        this.elf = builder.elf;
+        this.niceScoreBonus = builder.niceScoreBonus;
     }
 
     public Integer getId() {
@@ -69,6 +78,14 @@ public final class Child {
         return receivedGifts;
     }
 
+    public double getNiceScoreBonus() {
+        return niceScoreBonus;
+    }
+
+    public ElvesType getElf() {
+        return elf;
+    }
+
     public void setAverageScore(final Double averageScore) {
         this.averageScore = averageScore;
     }
@@ -105,6 +122,10 @@ public final class Child {
         this.assignedBudget = assignedBudget;
     }
 
+    public void setElf(ElvesType elf) {
+        this.elf = elf;
+    }
+
     public static final class ChildBuilder {
         private final Integer id;
         private Integer age;
@@ -116,6 +137,8 @@ public final class Child {
         private  ArrayList<Category> preferences = new ArrayList<>();
         private Double allocatedBudget;
         private final ArrayList<Gift> receivedGifts = new ArrayList<>();
+        private double niceScoreBonus;
+        private ElvesType elf;
 
         public ChildBuilder(final Integer id) {
             this.id = id;
@@ -178,6 +201,16 @@ public final class Child {
          */
         public ChildBuilder withPreference(final ArrayList<Category> pref) {
             this.preferences = pref;
+            return this;
+        }
+
+        public ChildBuilder witBonus(final Double niceScore) {
+            this.niceScoreBonus = niceScore;
+            return this;
+        }
+
+        public ChildBuilder withElf(final ElvesType elf1) {
+            this.elf = elf1;
             return this;
         }
 

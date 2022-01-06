@@ -44,8 +44,8 @@ public final class SingleTest {
         PreChecker.deleteFiles(outputDirectory.listFiles());
 
         //modify here for input/output files
-        String in = "tests/test13.json";
-        String out = "output/test_13.json";
+        String in = "tests/test3.json";
+        String out = "output/test_3.json";
 
 
         beSanta(in, out);

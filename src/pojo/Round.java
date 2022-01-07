@@ -42,6 +42,12 @@ public final class Round {
         }
     }
 
+    public void eliminateDuplicatePreferences(ArrayList<Child> kids) {
+        for (Child c : kids) {
+            childService.eliminateDuplicatePreferences(c);
+        }
+    }
+
     /**
      * distribute gifts to children
      * @param kids the Child array containing the eligible children

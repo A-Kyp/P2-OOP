@@ -33,7 +33,7 @@ public final class Sort {
             if (o1.getAverageScore().compareTo(o2.getAverageScore()) == 0) {
                 return o1.getId().compareTo(o2.getId());
             }
-            return o1.getAverageScore().compareTo(o2.getAverageScore());
+            return o2.getAverageScore().compareTo(o1.getAverageScore());
         });
     }
 

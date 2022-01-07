@@ -12,5 +12,10 @@ public class AverageScoreCalculator {
     public  Double getAverage(final Child kid) {
         return 0d;
     }
+    public void getAverageB(final Child c) {
+        double score = c.getAverageScore();
+        score += score * c.getNiceScoreBonus() / 100;
+        c.setAverageScore(score);
+    };
 
 }

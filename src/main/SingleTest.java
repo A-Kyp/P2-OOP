@@ -44,8 +44,8 @@ public final class SingleTest {
         PreChecker.deleteFiles(outputDirectory.listFiles());
 
         //modify here for input/output files
-        String in = "tests/test3.json";
-        String out = "output/test_3.json";
+        String in = "tests/test15.json";
+        String out = "output/out_15.json";
 
 
         beSanta(in, out);
@@ -76,6 +76,7 @@ public final class SingleTest {
         //start roundZero
         double santaBudget = in.getInitialData().getSantaBudget();
         roundZero.eliminateYoungAdults(kids); // kick out young adults if there are any
+        roundZero.eliminateDuplicatePreferences(kids);
         childService.updateMassHistory(kids); // update niceScoreHistory for each kid
         roundZero.calcAverageScore(kids);   // Calculate AverageScore for each kid
         roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
@@ -97,6 +98,7 @@ public final class SingleTest {
             roundZero.roundHistoryUpdate(kids, change.getChildrenUpdates()); // update existing kids
             roundZero.addNewChildren(kids, change.getNewChildren(), cities); // add new kids
             roundZero.eliminateYoungAdults(kids); // kick out young adults
+            roundZero.eliminateDuplicatePreferences(kids);
             roundZero.calcAverageScore(kids);   // re-calculate AverageScore for each kid
             Sort.sortChildById(kids); // ->
             roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
@@ -111,7 +113,7 @@ public final class SingleTest {
             JArrayChild arrayChild = new JArrayChild();
             arrayChild.load(kids); //save the result of the initial round
             writer.addToJSONArray(arrayRounds, arrayChild); //add the results to the
-            // jsonArray
+                                                            // jsonArray
             if (counter == in.getNumberOfYears()) {
                 break; //for test7.json
             }

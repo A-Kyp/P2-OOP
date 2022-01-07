@@ -55,7 +55,9 @@ public final class ChildService {
         calc = AverageFactory.create(c.getAge());
         if (calc.getAverage(c) != null) {
             c.setAverageScore(calc.getAverage(c));
+            calc.getAverageB(c);
         } // else do nothing as the Child would be a young adult and is already eliminated
+
     }
 
     /**
@@ -101,6 +103,20 @@ public final class ChildService {
                 combinedPref.add(category);
             }
         }
+
+        for (Category category : c.getGiftsPreferences()) {
+            if (!combinedPref.contains(category)) {
+                combinedPref.add(category);
+            }
+        }
+        c.setGiftsPreferences(combinedPref);
+    }
+
+    /**
+     * @param c the Child object to be updated
+     */
+    public void eliminateDuplicatePreferences(final Child c) {
+        ArrayList<Category> combinedPref = new ArrayList<>();
 
         for (Category category : c.getGiftsPreferences()) {
             if (!combinedPref.contains(category)) {

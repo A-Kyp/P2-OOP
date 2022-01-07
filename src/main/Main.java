@@ -81,6 +81,7 @@ public final class Main {
         //start roundZero
         double santaBudget = in.getInitialData().getSantaBudget();
         roundZero.eliminateYoungAdults(kids); // kick out young adults if there are any
+        roundZero.eliminateDuplicatePreferences(kids);
         childService.updateMassHistory(kids); // update niceScoreHistory for each kid
         roundZero.calcAverageScore(kids);   // Calculate AverageScore for each kid
         roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
@@ -103,6 +104,7 @@ public final class Main {
             roundZero.roundHistoryUpdate(kids, change.getChildrenUpdates()); // update existing kids
             roundZero.addNewChildren(kids, change.getNewChildren(), cities); // add new kids
             roundZero.eliminateYoungAdults(kids); // kick out young adults
+            roundZero.eliminateDuplicatePreferences(kids);
             roundZero.calcAverageScore(kids);   // re-calculate AverageScore for each kid
             Sort.sortChildById(kids); // ->
             roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit

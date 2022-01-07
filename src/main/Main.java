@@ -86,6 +86,7 @@ public final class Main {
         roundZero.calcAverageScore(kids);   // Calculate AverageScore for each kid
         roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
         roundZero.calcAllocatedBudget(kids); //Calculated allocated budget for each kid
+        roundZero.elvesChangeBudget(kids); //->
         Sort.sortGift(gifts); //Sort gift list
         roundZero.distributeGifts(kids, gifts); //distribute gifts to kids
         JArrayChild jArrayChild = new JArrayChild();

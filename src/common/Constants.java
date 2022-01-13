@@ -24,6 +24,7 @@ public final class Constants {
     public static final int BABY_AGE = 5;
     public static final int KID_AGE = 12;
     public static final int TEEN_AGE = 18;
+    public static final Double MAX_SCORE = 10d;
 
     //for parsing JSON files
     public static final String NUMBER_OF_YEARS = "numberOfYears";

@@ -3,3 +3,6 @@
 *.json
 *.jar
 *.sh
+checkstyle.txt
+*.txt
+checkstyle.txt

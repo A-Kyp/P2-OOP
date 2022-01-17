@@ -21,12 +21,14 @@ public class CityService {
     }
 
     public double calcCityScore(Cities city, ArrayList<Child> kids) {
-        double sum =0d;
+        Double sum =0d;
+        int matched = 0;
         for (Child c : kids) {
             if(c.getCity().compareTo(city) == 0) {
                 sum += c.getAverageScore();
+                matched ++;
             }
         }
-        return sum / kids.size();
+        return sum / matched;
     }
 }

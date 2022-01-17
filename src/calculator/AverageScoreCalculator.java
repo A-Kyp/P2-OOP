@@ -14,7 +14,7 @@ public class AverageScoreCalculator {
         return 0d;
     }
     public void getAverageB(final Child c) {
-        double score = c.getAverageScore();
+        Double score = c.getAverageScore();
         score += score * c.getNiceScoreBonus() / 100;
         if (score > Constants.MAX_SCORE) {
             score = Constants.MAX_SCORE;

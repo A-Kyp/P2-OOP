@@ -73,12 +73,9 @@ public final class ChildService {
      * @param gifts the sorted Gift array containing the available gifts
      */
     public void allocateGift(final Child c, final ArrayList<Gift> gifts) {
-        double budget = c.getAssignedBudget();
+        Double budget = c.getAssignedBudget();
         for (Category category : c.getGiftsPreferences()) {
             for (Gift g : gifts) {
-//                if(g.getPrice() > budget) {
-//                    break;
-//                }
                 if (g.getCategory().compareTo(category) == 0 && g.getQuantity() > 0
                             && g.getPrice() <= budget) {
                     c.getReceivedGifts().add(g);
@@ -162,28 +159,17 @@ public final class ChildService {
     }
 
     public void elfBudget(Child c) {
-        double budget = c.getAssignedBudget();
+        Double budget = c.getAssignedBudget();
         if(c.getElf().equals(ElvesType.PINK)) {
-            budget *= 13.0 / 10;
+            budget = budget + budget * 30 / 100;
         } else if (c.getElf().equals(ElvesType.BLACK)) {
-            budget *= 7.0 / 10;
+            budget = budget - budget * 30 / 100;
         }
         c.setAssignedBudget(budget);
     }
 
     public void yellowElf(Child c, ArrayList<Gift> gifts) {
         if(c.getReceivedGifts().size() == 0 && c.getElf().equals(ElvesType.YELLOW)) {
-//            this.allocateGift(c, gifts);
-//            if (c.getReceivedGifts().size() == 0) {
-//                return;
-//            }
-//            if(c.getReceivedGifts().get(0).getCategory().equals(c.getGiftsPreferences().get(0))) {
-//                Gift g = c.getReceivedGifts().get(0);
-//                c.getReceivedGifts().clear();
-//                c.getReceivedGifts().add(g);
-//            } else {
-//                c.getReceivedGifts().clear();
-//            }
             Category cat = c.getGiftsPreferences().get(0);
             for(Gift g : gifts) {
                 if(g.getCategory().compareTo(cat) == 0) {

@@ -221,4 +221,12 @@ public final class Child {
             return new Child(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return  lastName + " " +
+                firstName + " | " +
+                city + " | " +
+                + averageScore;
+    }
 }

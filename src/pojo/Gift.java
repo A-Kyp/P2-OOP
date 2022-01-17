@@ -38,7 +38,3 @@ public final class Gift {
         this.quantity = quantity;
     }
 }
-
-class View {
-    static class Good { };
-}

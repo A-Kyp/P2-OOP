@@ -77,18 +77,21 @@ public final class Main {
         ArrayList<Gift> gifts = in.getInitialData().getGifts();
         ArrayList<Cities> cities = in.getInitialData().getCities();
         ArrayList<AnnualChange> changes = in.getAnnualChanges();
+        RoundPlayer player = new RoundPlayer(roundZero);
 
         //start roundZero
         double santaBudget = in.getInitialData().getSantaBudget();
-        roundZero.eliminateYoungAdults(kids); // kick out young adults if there are any
-        roundZero.eliminateDuplicatePreferences(kids);
-        childService.updateMassHistory(kids); // update niceScoreHistory for each kid
-        roundZero.calcAverageScore(kids);   // Calculate AverageScore for each kid
-        roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
-        roundZero.calcAllocatedBudget(kids); //Calculated allocated budget for each kid
-        roundZero.elvesChangeBudget(kids); //->
-        Sort.sortGift(gifts); //Sort gift list
-        roundZero.distributeGifts(kids, gifts); //distribute gifts to kids
+//        roundZero.eliminateYoungAdults(kids); // kick out young adults if there are any
+//        roundZero.eliminateDuplicatePreferences(kids);
+//        childService.updateMassHistory(kids); // update niceScoreHistory for each kid
+//        roundZero.calcAverageScore(kids);   // Calculate AverageScore for each kid
+//        roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
+//        roundZero.calcAllocatedBudget(kids); //Calculated allocated budget for each kid
+//        roundZero.elvesChangeBudget(kids); //->
+//        Sort.sortGift(gifts); //Sort gift list
+//        roundZero.distributeGifts(kids, gifts); //distribute gifts to kids
+        player.initial(santaBudget, kids, gifts);
+
         JArrayChild jArrayChild = new JArrayChild();
         jArrayChild.load(kids); //save the result of the initial round
         writer.addToJSONArray(arrayRounds, jArrayChild); //add the results to the
@@ -99,24 +102,26 @@ public final class Main {
         for (AnnualChange change : changes) {
             DistributionStrategy strategy = StrategyFactory.createStrategy(change.getStrategy());
             santaBudget = change.getNewSantaBudget(); // update santaBudget
-            roundZero.aYearHasPassed(kids); // everybody ages exactly 1 year :)
-            roundZero.eliminateYoungAdults(kids); // kick out young adults
-            roundZero.resetReceivedGifts(kids);
-            roundZero.roundHistoryUpdate(kids, change.getChildrenUpdates()); // update existing kids
-            roundZero.addNewChildren(kids, change.getNewChildren(), cities); // add new kids
-            roundZero.eliminateYoungAdults(kids); // kick out young adults
-            roundZero.eliminateDuplicatePreferences(kids);
-            roundZero.calcAverageScore(kids);   // re-calculate AverageScore for each kid
-            Sort.sortChildById(kids); // ->
-            roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
-            roundZero.calcAllocatedBudget(kids); // re-calculated allocated budget for each kid
-            roundZero.elvesChangeBudget(kids); //->
-            roundZero.addNewGifts(gifts, change.getNewGifts()); // update gift list
-            Sort.sortGift(gifts); // sort [updated] gift list
-            strategy.arrange(kids); //->
-            roundZero.distributeGifts(kids, gifts); //distribute gifts to kids
-            roundZero.yellowElf(kids, gifts); //->
-            Sort.sortChildById(kids);//->
+//            roundZero.aYearHasPassed(kids); // everybody ages exactly 1 year :)
+//            roundZero.eliminateYoungAdults(kids); // kick out young adults
+//            roundZero.resetReceivedGifts(kids);
+//            roundZero.roundHistoryUpdate(kids, change.getChildrenUpdates()); // update existing kids
+//            roundZero.addNewChildren(kids, change.getNewChildren(), cities); // add new kids
+//            roundZero.eliminateYoungAdults(kids); // kick out young adults
+//            roundZero.eliminateDuplicatePreferences(kids);
+//            Sort.sortChildById(kids);
+//            roundZero.calcAverageScore(kids);   // re-calculate AverageScore for each kid
+//            roundZero.calcBudgetUnit(santaBudget, kids); // Calculate budgetUnit
+//            roundZero.calcAllocatedBudget(kids); // re-calculated allocated budget for each kid
+//            roundZero.elvesChangeBudget(kids); //->
+//            roundZero.addNewGifts(gifts, change.getNewGifts()); // update gift list
+//            Sort.sortGift(gifts); // sort [updated] gift list
+//            strategy.arrange(kids); //->
+//            roundZero.distributeGifts(kids, gifts); //distribute gifts to kids
+//            roundZero.yellowElf(kids, gifts); //->
+//            Sort.sortChildById(kids);//->
+
+            player.normalRound(santaBudget, kids, gifts, change, cities, strategy);
             JArrayChild arrayChild = new JArrayChild();
             arrayChild.load(kids); //save the result of the initial round
             writer.addToJSONArray(arrayRounds, arrayChild); //add the results to the

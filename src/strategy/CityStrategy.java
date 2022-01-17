@@ -9,6 +9,7 @@ import sort.Sort;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class CityStrategy implements DistributionStrategy {
 
@@ -21,8 +22,6 @@ public class CityStrategy implements DistributionStrategy {
         for (Cities city : cities) {
             ordCities.put(city, cityService.calcCityScore(city, kids));
         }
-
-        Sort.sortCity(ordCities);
 
         Sort.sortChildByCity(kids, ordCities);
     }

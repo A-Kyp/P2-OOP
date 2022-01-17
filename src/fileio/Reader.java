@@ -36,7 +36,7 @@ public final class Reader {
             // Parsing the contents of the JSON file
             JSONObject jObj = (JSONObject) jp.parse(new FileReader(inputPath));
             int jNumberOfYears = (int) ((long) jObj.get(Constants.NUMBER_OF_YEARS));
-            double jSantaBudget = (double) (long) jObj.get(Constants.SANTA_BUDGET);
+            Double jSantaBudget = (double) (long) jObj.get(Constants.SANTA_BUDGET);
             JSONObject jIData = (JSONObject) jObj.get(Constants.INITIAL_DATA);
             JSONArray jChildren = (JSONArray) jIData.get(Constants.CHILDREN);
             JSONArray jGift = (JSONArray) jIData.get(Constants.SANTA_GIFT_LIST);

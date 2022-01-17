@@ -3,7 +3,6 @@ package sort;
 import enums.Cities;
 import pojo.Child;
 import pojo.Gift;
-import service.CityService;
 
 import java.util.*;
 
@@ -37,40 +36,9 @@ public final class Sort {
         });
     }
 
-    public static void sortCity(LinkedHashMap<Cities, Double> cities) {
-        // 1. get entrySet from LinkedHashMap object
-        Set<Map.Entry<Cities, Double>> entrySet = cities.entrySet();
-
-        // 2. convert LinkedHashMap to List of Map.Entry
-        List<Map.Entry<Cities, Double>> entryList =
-                new ArrayList<Map.Entry<Cities, Double>>(entrySet);
-
-        // 3. sort list of entries using Collections class'
-        // utility method sort(ls, cmptr)
-        Collections.sort(entryList,
-                new Comparator<Map.Entry<Cities, Double>>() {
-
-                    @Override
-                    public int compare(final Map.Entry<Cities, Double> o1,
-                                       final Map.Entry<Cities, Double> o2) {
-//                        if (o2.getValue().compareTo(o1.getValue()) == 0) {
-//                            return o2.getKey().compareTo(o1.getKey());
-//                        }
-                        return o2.getValue().compareTo(o1.getValue());
-                    }
-                });
-
-        /*4. iterating list and storing in LinkedHashMap*/
-        LinkedHashMap<Cities, Double> sorted = new LinkedHashMap<>();
-        for (Map.Entry<Cities, Double> map : entryList) {
-            sorted.put(map.getKey(), map.getValue());
-        }
-        cities = sorted;
-    }
-
     public static void sortChildByCity(final ArrayList<Child> children,
                                        final LinkedHashMap<Cities, Double> cities) {
-        Collections.sort(children, new CityComparator(cities));
+        children.sort(new ChildByCityComparator(cities));
     }
 }
 

@@ -19,7 +19,7 @@ public final class TeenAverage extends AverageScoreCalculator {
 
     @Override
     public Double getAverage(final Child kid) {
-        double sum = 0d;
+        Double sum = 0d;
         int weight = kid.getNiceScoreHistory().size();
         int totalWeight = weight * (weight + 1) / 2;
         weight = 1;

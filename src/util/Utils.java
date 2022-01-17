@@ -145,12 +145,14 @@ public final class Utils {
                     Child kid = new Child.ChildBuilder(
                          (int) (long) ((JSONObject) object).get(Constants.ID))
                          .withPreference(Utils.convertJSONArrayCategory((JSONArray) giftPreference))
+                         .withElf(Utils.toElf((String) ((JSONObject) object).get(Constants.ELF)))
                          .build();
                     finalArray.add(kid);
                 } else {
                     Child kid = new Child.ChildBuilder(
                             (int) (long) ((JSONObject) object).get(Constants.ID))
                             .withNiceScore((double) (long) score)
+                            .withElf(Utils.toElf((String) ((JSONObject) object).get(Constants.ELF)))
                             .build();
                     finalArray.add(kid);
                 }

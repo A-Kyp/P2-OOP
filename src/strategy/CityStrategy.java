@@ -16,6 +16,7 @@ public class CityStrategy implements DistributionStrategy {
     @Override
     public void arrange(ArrayList<Child> kids) {
         ArrayList<Cities> cities = Input.getInstance().getInitialData().getCities();
+        Sort.sortCity(cities);
         CityService cityService = CityService.getInstance();
         LinkedHashMap<Cities, Double> ordCities = new LinkedHashMap<>();
 

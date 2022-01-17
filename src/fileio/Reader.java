@@ -42,6 +42,7 @@ public final class Reader {
             JSONArray jGift = (JSONArray) jIData.get(Constants.SANTA_GIFT_LIST);
             JSONArray jAnnualChanges = (JSONArray) jObj.get(Constants.ANNUAL_CHANGES);
 
+            //creating the ChildArray
             if (jChildren != null) {
                 for (Object kid : jChildren) {
                     children.add(new Child.ChildBuilder(
@@ -58,7 +59,7 @@ public final class Reader {
                       .build());
                 }
             }
-
+            //creating the giftArray
             if (jGift != null) {
                 for (Object toy : jGift) {
                     gifts.add(new Gift((String) ((JSONObject) toy).get(Constants.PRODUCT_NAME),
@@ -74,6 +75,7 @@ public final class Reader {
 
             InitialData iData = new InitialData(jSantaBudget, children, gifts, cities);
 
+            //create AnnualChangeArray
             for (Object change : jAnnualChanges) {
                 annualChanges.add(new AnnualChange(
                         (double) (long) ((JSONObject) change).get(Constants.NEW_SANTA_BUDGET),

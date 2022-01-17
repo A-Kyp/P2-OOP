@@ -5,8 +5,9 @@ import pojo.Child;
 
 import java.util.Comparator;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
-    class ChildByCityComparator implements Comparator<Child> {
+class ChildByCityComparator implements Comparator<Child> {
         private final LinkedHashMap<Cities, Double> sortOrder;
 
         public ChildByCityComparator(LinkedHashMap<Cities, Double> order) {
@@ -29,7 +30,23 @@ import java.util.LinkedHashMap;
                         o2.getCity());
             }
             if (cityScore == cityScore2) {
-                return o2.getAverageScore().compareTo(o1.getAverageScore());
+                Integer c1 = 0;
+                Integer c2 = 0;
+                int counter = 0;
+                for(Map.Entry e : sortOrder.entrySet()) {
+                    counter ++;
+                    if(e.getKey().equals(o1.getCity())) {
+                        c1 = counter;
+                    }
+
+                    if(e.getKey().equals(o2.getCity())) {
+                        c2 = counter;
+                    }
+                }
+                if(c1.equals(c2)) {
+                    return o1.getId().compareTo(o2.getId());
+                }
+                return c1.compareTo(c2);
             }
             return cityScore2.compareTo(cityScore);
         }

@@ -23,6 +23,15 @@ public final class Sort {
         });
     }
 
+    public static void sortCity(ArrayList<Cities> cities) {
+        cities.sort(new Comparator<Cities>() {
+            @Override
+            public int compare(Cities o1, Cities o2) {
+                return o1.toString().compareTo(o2.toString());
+            }
+        });
+    }
+
     public static void sortChildById(final ArrayList<Child> children) {
         children.sort(Comparator.comparing(Child::getId));
     }

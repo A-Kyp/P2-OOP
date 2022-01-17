@@ -46,8 +46,8 @@ public final class SingleTest {
         PreChecker.deleteFiles(outputDirectory.listFiles());
 
         //modify here for input/output files ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! ! !
-        String in = "tests/test14.json";
-        String out = "output/out_14.json";
+        String in = "tests/test22.json";
+        String out = "output/out_22.json";
 
 
         beSanta(in, out);
@@ -75,7 +75,7 @@ public final class SingleTest {
         ArrayList<AnnualChange> changes = in.getAnnualChanges();
         RoundPlayer player = new RoundPlayer(roundZero);
 
-        //start roundZero
+        //start roundZero =======================================================================
         double santaBudget = in.getInitialData().getSantaBudget();
 
         player.initial(santaBudget, kids, gifts);
@@ -86,12 +86,20 @@ public final class SingleTest {
         // jsonArray
 
         int counter = 1;
-        //play rounds
+        //play rounds ============================================================================
         for (AnnualChange change : changes) {
+            System.out.println("Round" + counter + ":");
+            for(Child c : change.getChildrenUpdates()) {
+                System.out.println(c.getElf());
+            }
+            System.out.println();
+
             DistributionStrategy strategy = StrategyFactory.createStrategy(change.getStrategy());
             santaBudget = change.getNewSantaBudget(); // update santaBudget
 
             player.normalRound(santaBudget, kids, gifts, change, cities, strategy);
+
+//            System.out.println(kids.get(1).getElf());
 
             JArrayChild arrayChild = new JArrayChild();
             arrayChild.load(kids); //save the result of the initial round (P1)

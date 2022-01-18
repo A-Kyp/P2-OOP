@@ -20,7 +20,7 @@ public class CityService {
         return instance;
     }
 
-    public double calcCityScore(Cities city, ArrayList<Child> kids) {
+    public Double calcCityScore(Cities city, ArrayList<Child> kids) {
         Double sum =0d;
         int matched = 0;
         for (Child c : kids) {

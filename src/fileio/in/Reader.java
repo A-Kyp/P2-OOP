@@ -1,4 +1,4 @@
-package fileio;
+package fileio.in;
 
 import common.Constants;
 import enums.Cities;
@@ -7,6 +7,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import pojo.*;
+import pojo.database.AnnualChange;
+import pojo.database.InitialData;
+import pojo.database.Input;
 import util.Utils;
 
 import java.io.FileReader;

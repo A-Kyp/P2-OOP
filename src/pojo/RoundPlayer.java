@@ -1,6 +1,7 @@
 package pojo;
 
 import enums.Cities;
+import pojo.database.AnnualChange;
 import service.ChildService;
 import sort.Sort;
 import strategy.DistributionStrategy;

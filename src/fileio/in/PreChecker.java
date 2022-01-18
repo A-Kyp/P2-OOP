@@ -1,4 +1,4 @@
-package fileio;
+package fileio.in;
 
 import java.io.File;
 

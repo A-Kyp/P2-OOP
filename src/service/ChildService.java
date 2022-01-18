@@ -175,6 +175,7 @@ public final class ChildService {
                 if(g.getCategory().compareTo(cat) == 0) {
                     if(g.getQuantity() > 0) {
                         c.getReceivedGifts().add(g);
+                        g.setQuantity(g.getQuantity() - 1);
                     }
                     break;
                 }

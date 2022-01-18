@@ -1,4 +1,4 @@
-package fileio;
+package fileio.out;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

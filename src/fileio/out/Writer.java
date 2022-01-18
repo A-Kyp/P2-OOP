@@ -1,8 +1,10 @@
-package fileio;
+package fileio.out;
 
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import fileio.out.JArrayChild;
+import fileio.out.JArrayRounds;
 
 import java.io.File;
 import java.io.FileWriter;

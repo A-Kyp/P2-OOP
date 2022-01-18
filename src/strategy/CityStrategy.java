@@ -1,15 +1,13 @@
 package strategy;
 
 import enums.Cities;
-import enums.CityStrategyEnum;
 import pojo.Child;
-import pojo.Input;
+import pojo.database.Input;
 import service.CityService;
 import sort.Sort;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class CityStrategy implements DistributionStrategy {
 
@@ -21,9 +19,17 @@ public class CityStrategy implements DistributionStrategy {
         LinkedHashMap<Cities, Double> ordCities = new LinkedHashMap<>();
 
         for (Cities city : cities) {
-            ordCities.put(city, cityService.calcCityScore(city, kids));
+            Double cScore = cityService.calcCityScore(city, kids);
+            if(cScore != 0d)
+            ordCities.put(city, cScore);
         }
 
         Sort.sortChildByCity(kids, ordCities);
+
+        ordCities.forEach((key, value) -> System.out.println(key + "|" + value + "\t"));
+
+        for(Child c : kids) {
+            System.out.println(c);
+        }
     }
 }

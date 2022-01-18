@@ -1,4 +1,4 @@
-package pojo;
+package pojo.database;
 
 import java.util.ArrayList;
 

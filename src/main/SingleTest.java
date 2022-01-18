@@ -1,21 +1,18 @@
 package main;
 
-import checker.Checker;
 import common.Constants;
 import enums.Cities;
-import fileio.JArrayChild;
-import fileio.JArrayRounds;
-import fileio.PreChecker;
-import fileio.Reader;
-import fileio.Writer;
+import fileio.out.JArrayChild;
+import fileio.out.JArrayRounds;
+import fileio.in.PreChecker;
+import fileio.in.Reader;
+import fileio.out.Writer;
 import pojo.*;
-import service.ChildService;
-import sort.Sort;
-import strategy.CityStrategy;
+import pojo.database.AnnualChange;
+import pojo.database.Input;
 import strategy.DistributionStrategy;
 import strategy.StrategyFactory;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -88,11 +85,13 @@ public final class SingleTest {
         int counter = 1;
         //play rounds ============================================================================
         for (AnnualChange change : changes) {
+
             System.out.println("Round" + counter + ":");
-            for(Child c : change.getChildrenUpdates()) {
-                System.out.println(c.getElf());
-            }
-            System.out.println();
+            //de afisat gifturile sa vezi ce cantitati mai are disponibile
+//            for(Child c : change.getChildrenUpdates()) {
+//                System.out.println(c.getElf());
+//            }
+//            System.out.println();
 
             DistributionStrategy strategy = StrategyFactory.createStrategy(change.getStrategy());
             santaBudget = change.getNewSantaBudget(); // update santaBudget

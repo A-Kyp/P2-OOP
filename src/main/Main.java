@@ -3,10 +3,15 @@ package main;
 import checker.Checker;
 import common.Constants;
 import enums.Cities;
-import fileio.*;
+import fileio.in.PreChecker;
+import fileio.in.Reader;
+import fileio.out.JArrayChild;
+import fileio.out.JArrayRounds;
+import fileio.out.Writer;
 import pojo.*;
+import pojo.database.AnnualChange;
+import pojo.database.Input;
 import service.ChildService;
-import sort.Sort;
 import strategy.DistributionStrategy;
 import strategy.StrategyFactory;
 

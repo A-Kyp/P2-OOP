@@ -5,7 +5,6 @@ import common.Constants;
 import enums.Cities;
 import fileio.in.PreChecker;
 import fileio.in.Reader;
-import fileio.out.JArrayChild;
 import fileio.out.JArrayRounds;
 import fileio.out.Writer;
 import pojo.Child;
@@ -78,6 +77,7 @@ public final class Main {
         read.readData(); //populate the DB
 
         Round roundZero = new Round();
+
         ArrayList<Child> kids = in.getInitialData().getChildren();
         ArrayList<Gift> gifts = in.getInitialData().getGifts();
         ArrayList<Cities> cities = in.getInitialData().getCities();
@@ -89,10 +89,7 @@ public final class Main {
 
         player.initial(santaBudget, kids, gifts);
 
-        JArrayChild jArrayChild = new JArrayChild();
-        jArrayChild.load(kids); //save the result of the initial round
-        Writer.addToJSONArray(arrayRounds, jArrayChild); //add the results to the
-                                                         // jsonArray
+        Writer.writeToArray(kids, arrayRounds); //write result
 
         //================================= start annualChanges =================================
         for (AnnualChange change : changes) {
@@ -101,10 +98,7 @@ public final class Main {
 
             player.normalRound(santaBudget, kids, gifts, change, cities, strategy);
 
-            JArrayChild arrayChild = new JArrayChild();
-            arrayChild.load(kids); //save the result of the initial round
-            Writer.addToJSONArray(arrayRounds, arrayChild); //add the results to the
-                                                            // jsonArray
+            Writer.writeToArray(kids, arrayRounds); //write result
         }
         Writer.writeRound(out, arrayRounds); //print results in JSON file
     }

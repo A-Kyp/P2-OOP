@@ -3,9 +3,11 @@ package fileio.out;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import pojo.Child;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * The class writes the output in files
@@ -33,6 +35,20 @@ public final class Writer {
      */
     public static void addToJSONArray(final JArrayRounds arr, final JArrayChild arrayChild) {
         arr.getAnnualChildren().add(arrayChild);
+    }
+
+    /**
+     * <p>Make a deep copy of the children list in a JArrayChild object to make current round
+     * changes persist permanently. Then put the loaded JArrayChild into the array that stores
+     * the final result.</p>
+     * @param kids the result of a round
+     * @param arrayRounds the array of arrays that keeps the final result that is to be printed
+     *                    to the json file
+     */
+    public static void writeToArray(final ArrayList<Child> kids, final JArrayRounds arrayRounds) {
+        JArrayChild arrayChild = new JArrayChild();
+        arrayChild.load(kids); //save the result of the initial round
+        Writer.addToJSONArray(arrayRounds, arrayChild); //add the results to the jsonArray
     }
 }
 

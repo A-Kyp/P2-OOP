@@ -25,6 +25,8 @@ public final class Constants {
     public static final int KID_AGE = 12;
     public static final int TEEN_AGE = 18;
     public static final Double MAX_SCORE = 10d;
+    public static final int PERCENTAGE = 100;
+    public static final int ELF_AMOUNT = 30;
 
     //for parsing JSON files
     public static final String NUMBER_OF_YEARS = "numberOfYears";

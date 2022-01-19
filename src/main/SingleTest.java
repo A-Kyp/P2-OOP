@@ -7,7 +7,10 @@ import fileio.out.JArrayRounds;
 import fileio.in.PreChecker;
 import fileio.in.Reader;
 import fileio.out.Writer;
-import pojo.*;
+import pojo.Child;
+import pojo.Gift;
+import pojo.Round;
+import pojo.RoundPlayer;
 import pojo.database.AnnualChange;
 import pojo.database.Input;
 import strategy.DistributionStrategy;
@@ -46,10 +49,7 @@ public final class SingleTest {
         String in = "tests/test22.json";
         String out = "output/out_22.json";
 
-
         beSanta(in, out);
-
-//        Checker.calculateScore(); //uncomment this line for checker
     }
 
     /**
@@ -61,7 +61,6 @@ public final class SingleTest {
         Reader read = new Reader(inFile);
         Input in = Input.getInstance(); //the DB
         JArrayRounds arrayRounds = new JArrayRounds(); // for writing the JSON file
-        Writer writer = new Writer(outFile); // also, for writing the JSON file
 
         read.readData(); //populate the DB
 
@@ -72,43 +71,28 @@ public final class SingleTest {
         ArrayList<AnnualChange> changes = in.getAnnualChanges();
         RoundPlayer player = new RoundPlayer(roundZero);
 
-        //start roundZero =======================================================================
+        //================================== start roundZero =====================================
         double santaBudget = in.getInitialData().getSantaBudget();
 
         player.initial(santaBudget, kids, gifts);
 
         JArrayChild jArrayChild = new JArrayChild();
         jArrayChild.load(kids); //save the result of the initial round
-        writer.addToJSONArray(arrayRounds, jArrayChild); //add the results to the
-        // jsonArray
+        Writer.addToJSONArray(arrayRounds, jArrayChild); //add the results to the
+                                                         // jsonArray
 
-        int counter = 1;
-        //play rounds ============================================================================
+        //================================ play rounds ============================================
         for (AnnualChange change : changes) {
-
-            System.out.println("Round" + counter + ":");
-            //de afisat gifturile sa vezi ce cantitati mai are disponibile
-//            for(Child c : change.getChildrenUpdates()) {
-//                System.out.println(c.getElf());
-//            }
-//            System.out.println();
-
             DistributionStrategy strategy = StrategyFactory.createStrategy(change.getStrategy());
             santaBudget = change.getNewSantaBudget(); // update santaBudget
 
             player.normalRound(santaBudget, kids, gifts, change, cities, strategy);
 
-//            System.out.println(kids.get(1).getElf());
-
             JArrayChild arrayChild = new JArrayChild();
             arrayChild.load(kids); //save the result of the initial round (P1)
-            writer.addToJSONArray(arrayRounds, arrayChild); //add the results to the
+            Writer.addToJSONArray(arrayRounds, arrayChild); //add the results to the
                                                             // jsonArray
-            if (counter == in.getNumberOfYears()) {
-                break; //for test7.json
-            }
-            counter++;
         }
-        writer.writeRound(out, arrayRounds); //print results in JSON file
+        Writer.writeRound(out, arrayRounds); //print results in JSON file
     }
 }

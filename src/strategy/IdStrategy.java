@@ -5,9 +5,9 @@ import sort.Sort;
 
 import java.util.ArrayList;
 
-public class IdStrategy implements DistributionStrategy {
+public final class IdStrategy implements DistributionStrategy {
     @Override
-    public void arrange(ArrayList<Child> kids) {
+    public void arrange(final ArrayList<Child> kids) {
         Sort.sortChildById(kids);
     }
 }

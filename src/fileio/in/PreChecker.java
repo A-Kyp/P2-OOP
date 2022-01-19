@@ -12,7 +12,7 @@ public final class PreChecker {
         if (directory != null) {
             for (File file : directory) {
                 if (!file.delete()) {
-                    System.out.println("nu s-a sters");
+                    System.out.println("not erased");
                 }
             }
         }

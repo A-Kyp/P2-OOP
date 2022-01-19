@@ -1,7 +1,6 @@
 package pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonView;
 import enums.Category;
 
 public final class Gift {
@@ -11,7 +10,8 @@ public final class Gift {
     @JsonIgnore
     private int quantity;
 
-    public Gift(final String productName, final Double price, final Category category, int q) {
+    public Gift(final String productName, final Double price, final Category category,
+                final int q) {
         this.productName = productName;
         this.price = price;
         this.category = category;
@@ -34,7 +34,7 @@ public final class Gift {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(final int quantity) {
         this.quantity = quantity;
     }
 }

@@ -13,6 +13,7 @@ public final class InitialData {
     private ArrayList<Cities> cities = new ArrayList<>();
 
     public InitialData() { }
+
     public InitialData(final Double santaBudget, final ArrayList<Child> children,
                        final ArrayList<Gift> gifts, final ArrayList<Cities> cities) {
         this.santaBudget = santaBudget;

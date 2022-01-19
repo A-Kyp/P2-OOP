@@ -5,7 +5,7 @@ import pojo.Child;
 
 import java.util.ArrayList;
 
-public class CityService {
+public final class CityService {
     private static CityService instance;
 
     private CityService() { }
@@ -20,13 +20,18 @@ public class CityService {
         return instance;
     }
 
-    public Double calcCityScore(Cities city, ArrayList<Child> kids) {
-        Double sum =0d;
+    /**
+     * @param city the list containing all the eligible children's cities
+     * @param kids the eligible children
+     * @return the city's score average
+     */
+    public Double calcCityScore(final Cities city, final ArrayList<Child> kids) {
+        Double sum = 0d;
         int matched = 0;
         for (Child c : kids) {
-            if(c.getCity().compareTo(city) == 0) {
+            if (c.getCity().compareTo(city) == 0) {
                 sum += c.getAverageScore();
-                matched ++;
+                matched++;
             }
         }
         return sum / matched;

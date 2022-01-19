@@ -3,25 +3,15 @@ package fileio.out;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import fileio.out.JArrayChild;
-import fileio.out.JArrayRounds;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 /**
  * The class writes the output in files
  */
 public final class Writer {
-    /**
-     * The file where the data will be written
-     */
-    private final FileWriter file;
-
-    public Writer(final String path) throws IOException {
-        this.file = new FileWriter(path);
-    }
+    private Writer() { }
 
     /**
      * Transforms the output in a JSONObject
@@ -30,7 +20,7 @@ public final class Writer {
      * @param array the array containing the results of each round
      * @throws IOException in case of exceptions to reading / writing
      */
-    public void writeRound(final File out, final JArrayRounds array) throws IOException {
+    public static void writeRound(final File out, final JArrayRounds array) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ObjectWriter writer = mapper.writer(new DefaultPrettyPrinter());
 
@@ -41,7 +31,7 @@ public final class Writer {
      * @param arr the JArrayRounds instance that keeps the final result which is to be printed
      * @param arrayChild the JArrayChild that keep the result of a single round
      */
-    public void addToJSONArray(final JArrayRounds arr, final JArrayChild arrayChild) {
+    public static void addToJSONArray(final JArrayRounds arr, final JArrayChild arrayChild) {
         arr.getAnnualChildren().add(arrayChild);
     }
 }

@@ -5,9 +5,9 @@ import sort.Sort;
 
 import java.util.ArrayList;
 
-public class NiceScoreStrategy implements DistributionStrategy {
+public final class NiceScoreStrategy implements DistributionStrategy {
     @Override
-    public void arrange(ArrayList<Child> kids) {
+    public void arrange(final ArrayList<Child> kids) {
         Sort.sortChildByNiceScore(kids);
     }
 }

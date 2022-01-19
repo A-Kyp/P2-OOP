@@ -52,6 +52,11 @@ public final class Utils {
         };
     }
 
+    /**
+     * Transforms a string into an enum
+     * @param elf the string to be transformed
+     * @return an ElvesType enum
+     */
     public static ElvesType toElf(final String elf) {
         return switch (elf) {
             case "yellow" -> ElvesType.YELLOW;
@@ -62,6 +67,11 @@ public final class Utils {
         };
     }
 
+    /**
+     * Transforms a string into an enum
+     * @param str string to be transformed
+     * @return a CityStrategy enum
+     */
     public static CityStrategyEnum toStrategy(final String str) {
         return switch (str) {
             case Constants.ID -> CityStrategyEnum.ID;

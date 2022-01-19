@@ -4,7 +4,9 @@ import enums.Cities;
 import pojo.Child;
 import pojo.Gift;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 
 public final class Sort {
     private Sort() { }
@@ -23,19 +25,26 @@ public final class Sort {
         });
     }
 
-    public static void sortCity(ArrayList<Cities> cities) {
-        cities.sort(new Comparator<Cities>() {
-            @Override
-            public int compare(Cities o1, Cities o2) {
-                return o1.toString().compareTo(o2.toString());
-            }
-        });
+    /**
+     * Sort cities in asc lexicographic order
+     * @param cities the cities list to be ordered
+     */
+    public static void sortCity(final ArrayList<Cities> cities) {
+        cities.sort(Comparator.comparing(Enum::toString));
     }
 
+    /**
+     * Sort children in (asc) order by ID
+     * @param children the children list to be sorted
+     */
     public static void sortChildById(final ArrayList<Child> children) {
         children.sort(Comparator.comparing(Child::getId));
     }
 
+    /**
+     * Sort children in (desc) order by niceScore
+     * @param children the children list to be sorted
+     */
     public static void sortChildByNiceScore(final ArrayList<Child> children) {
         children.sort((o1, o2) -> {
             if (o1.getAverageScore().compareTo(o2.getAverageScore()) == 0) {
@@ -45,6 +54,12 @@ public final class Sort {
         });
     }
 
+    /**
+     * <p>Sort children in 1. (desc) order by city score
+     *                      2. (asc) order by ID</p>
+     * @param children children list to be sorted
+     * @param cities cities map
+     */
     public static void sortChildByCity(final ArrayList<Child> children,
                                        final LinkedHashMap<Cities, Double> cities) {
         children.sort(new ChildByCityComparator(cities));

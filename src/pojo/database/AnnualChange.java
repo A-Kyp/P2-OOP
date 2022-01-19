@@ -1,6 +1,5 @@
 package pojo.database;
 
-import enums.Cities;
 import enums.CityStrategyEnum;
 import pojo.Child;
 import pojo.Gift;

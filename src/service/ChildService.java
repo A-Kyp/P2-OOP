@@ -2,6 +2,7 @@ package service;
 
 import calculator.AverageFactory;
 import calculator.AverageScoreCalculator;
+import common.Constants;
 import enums.Category;
 import enums.ElvesType;
 import pojo.Child;
@@ -123,6 +124,10 @@ public final class ChildService {
         c.setGiftsPreferences(combinedPref);
     }
 
+    /**
+     * @param c the Child object to be updated
+     * @param u the Child update
+     */
     public void updateElf(final Child c, final Child u) {
         c.setElf(u.getElf());
     }
@@ -158,22 +163,31 @@ public final class ChildService {
         dest.getReceivedGifts().addAll(src.getReceivedGifts());
     }
 
-    public void elfBudget(Child c) {
+    /**
+     * update assignedBudget value based on one's elf
+     * @param c the Child object subjected to the P&B elves' action
+     */
+    public void elfBudget(final Child c) {
         Double budget = c.getAssignedBudget();
-        if(c.getElf().equals(ElvesType.PINK)) {
-            budget = budget + budget * 30 / 100;
+        if (c.getElf().equals(ElvesType.PINK)) {
+            budget = budget + budget * Constants.ELF_AMOUNT / Constants.PERCENTAGE;
         } else if (c.getElf().equals(ElvesType.BLACK)) {
-            budget = budget - budget * 30 / 100;
+            budget = budget - budget * Constants.ELF_AMOUNT / Constants.PERCENTAGE;
         }
         c.setAssignedBudget(budget);
     }
 
-    public void yellowElf(Child c, ArrayList<Gift> gifts) {
-        if(c.getReceivedGifts().size() == 0 && c.getElf().equals(ElvesType.YELLOW)) {
+    /**
+     * apply the Y elf
+     * @param c the Child object subjected to the Y elf's action
+     * @param gifts the current giftList
+     */
+    public void yellowElf(final Child c, final ArrayList<Gift> gifts) {
+        if (c.getReceivedGifts().size() == 0 && c.getElf().equals(ElvesType.YELLOW)) {
             Category cat = c.getGiftsPreferences().get(0);
-            for(Gift g : gifts) {
-                if(g.getCategory().compareTo(cat) == 0) {
-                    if(g.getQuantity() > 0) {
+            for (Gift g : gifts) {
+                if (g.getCategory().compareTo(cat) == 0) {
+                    if (g.getQuantity() > 0) {
                         c.getReceivedGifts().add(g);
                         g.setQuantity(g.getQuantity() - 1);
                     }

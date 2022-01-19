@@ -1,8 +1,6 @@
 package pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import enums.Category;
 import enums.Cities;
 import enums.ElvesType;
@@ -122,7 +120,7 @@ public final class Child {
         this.assignedBudget = assignedBudget;
     }
 
-    public void setElf(ElvesType elf) {
+    public void setElf(final ElvesType elf) {
         this.elf = elf;
     }
 
@@ -130,13 +128,10 @@ public final class Child {
         private final Integer id;
         private Integer age;
         private Double avgNiceScore;
-        private final ArrayList<Double> niceScoreHistory = new ArrayList<>();
         private String lastName;
         private String firstName;
         private Cities city;
         private  ArrayList<Category> preferences = new ArrayList<>();
-        private Double allocatedBudget;
-        private final ArrayList<Gift> receivedGifts = new ArrayList<>();
         private double niceScoreBonus;
         private ElvesType elf;
 
@@ -204,11 +199,19 @@ public final class Child {
             return this;
         }
 
+        /**
+         * @param niceScore giftPreference value
+         * @return a ChildBuilderObject with a notNull value for the niceScoreBonus field
+         */
         public ChildBuilder witBonus(final Double niceScore) {
             this.niceScoreBonus = niceScore;
             return this;
         }
 
+        /**
+         * @param elf1 giftPreference value
+         * @return a ChildBuilderObject with a notNull value for the elf field
+         */
         public ChildBuilder withElf(final ElvesType elf1) {
             this.elf = elf1;
             return this;
@@ -220,13 +223,5 @@ public final class Child {
         public Child build() {
             return new Child(this);
         }
-    }
-
-    @Override
-    public String toString() {
-        return lastName +
-                firstName + '|' +
-                city + "|" +
-                averageScore + "|";
     }
 }

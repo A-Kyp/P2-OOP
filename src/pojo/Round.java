@@ -42,7 +42,11 @@ public final class Round {
         }
     }
 
-    public void eliminateDuplicatePreferences(ArrayList<Child> kids) {
+    /**
+     * after adding newGiftPreferences to the giftPreferences eliminate duplicated values
+     * @param kids the Child array containing the eligible children
+     */
+    public void eliminateDuplicatePreferences(final ArrayList<Child> kids) {
         for (Child c : kids) {
             childService.eliminateDuplicatePreferences(c);
         }
@@ -71,8 +75,9 @@ public final class Round {
             initial.addAll(newKids);
         }
 
+        assert newKids != null;
         for (Child c : newKids) {
-            if(!cities.contains(c.getCity())) {
+            if (!cities.contains(c.getCity())) {
                 cities.add(c.getCity());
             }
         }
@@ -93,7 +98,7 @@ public final class Round {
                     if (update.getGiftsPreferences() != null) {
                         childService.updatePreferences(c, update.getGiftsPreferences());
                     }
-                    if(update.getElf() != null) {
+                    if (update.getElf() != null) {
                         childService.updateElf(c, update);
                     }
                 }
@@ -108,12 +113,14 @@ public final class Round {
      */
     public void addNewGifts(final ArrayList<Gift> initial, final ArrayList<Gift> newGift) {
         if (newGift != null) {
-            for(Gift g : newGift) {
+            for (Gift g : newGift) {
                 if (!initial.contains(g)) {
                     initial.add(g);
                 } else {
                     int q = g.getQuantity();
+                    //update quantity
                     q += initial.get(roundService.findIndex(initial, g)).getQuantity();
+                    //set new quantity
                     initial.get(roundService.findIndex(initial, g)).setQuantity(q);
                 }
             }
@@ -150,6 +157,10 @@ public final class Round {
         }
     }
 
+    /**
+     * after calculating the normally assigned budget for each child, change it base on one's elf
+     * @param kids the Child array containing all the existent children
+     */
     public void elvesChangeBudget(final ArrayList<Child> kids) {
         for (Child c : kids) {
             childService.elfBudget(c);
@@ -157,6 +168,10 @@ public final class Round {
 
     }
 
+    /**
+     * after distributing the gifts to all eligible children, put yellow elf to work
+     * @param kids the Child array containing all the existent children
+     */
     public void yellowElf(final ArrayList<Child> kids, final ArrayList<Gift> gifts) {
         for (Child c : kids) {
             childService.yellowElf(c, gifts);

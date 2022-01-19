@@ -6,7 +6,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import pojo.*;
+import pojo.Child;
+import pojo.Gift;
 import pojo.database.AnnualChange;
 import pojo.database.InitialData;
 import pojo.database.Input;
@@ -62,6 +63,7 @@ public final class Reader {
                       .build());
                 }
             }
+
             //creating the giftArray
             if (jGift != null) {
                 for (Object toy : jGift) {
@@ -72,6 +74,7 @@ public final class Reader {
                 }
             }
 
+            //creating the cities list
             for (Child kid : children) {
                 cities.add(kid.getCity());
             }
@@ -91,6 +94,7 @@ public final class Reader {
                         Utils.toStrategy((String) ((JSONObject) change).get(Constants.STRATEGY))));
             }
 
+            //put everything in the DB
             Input in = Input.getInstance(); //create the database (DB)
             in.setAnnualChanges(annualChanges); //populate the DB
             in.setInitialData(iData);

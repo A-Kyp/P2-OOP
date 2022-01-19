@@ -2,19 +2,14 @@ package strategy;
 
 import enums.CityStrategyEnum;
 
-public class StrategyFactory {
-    public static StrategyFactory instance = null;
-
+public final class StrategyFactory {
     private StrategyFactory() { }
 
-    public static StrategyFactory getInstance()
-    {
-        if (instance == null) {
-            instance = new StrategyFactory();
-        }
-        return instance;
-    }
-    public static DistributionStrategy createStrategy(CityStrategyEnum strategy) {
+    /**
+     * @param strategy the current round's strategy
+     * @return the corresponding distribution strategy instance
+     */
+    public static DistributionStrategy createStrategy(final CityStrategyEnum strategy) {
         return switch (strategy) {
             case NICE_SCORE_CITY -> new CityStrategy();
             case NICE_SCORE -> new NiceScoreStrategy();

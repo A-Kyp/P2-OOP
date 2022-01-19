@@ -32,13 +32,18 @@ public final class RoundService {
         return sum;
     }
 
-    public int findIndex(ArrayList<Gift> gifts, Gift gift) {
+    /**
+     * @param gifts the current gift list
+     * @param gift the searched gift
+     * @return the index of the gift in the gifts list if it exists, otherwise -1
+     */
+    public int findIndex(final ArrayList<Gift> gifts, final Gift gift) {
         int index = 0;
-        for(Gift g : gifts) {
+        for (Gift g : gifts) {
             if (g.getProductName().equals(gift.getProductName())) {
                 return index;
             }
-            index ++;
+            index++;
         }
         return -1;
     }
